@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <section>
+      <div class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="minusbtn1" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="currentQ" type="text" class="form-control text-center" value="1">
+                           <button id="plusbtn1" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <h5>$ <span id="mobilePrice" >500</span> </h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="csminusBtn" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="csQuantity" type="text" class="form-control text-center" value="1">
+                           <button id="csplusBtn" class="btn btn-default"><i class="fas fa-plus"></i></button>
+
+                        </div>
+                        <h5>$ <span id="casingPrice" >50</span> </h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax:</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5>$ <span id="subTotal">550</span> </h5>
+                        <h5>$ <span id="taxAmount">00</span> </h5>
+                        <h5>$ <span id="includeTax">00</span> </h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button type="button" id="checkBtn" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+
+
+<script>
+   // All function here//
+
+   function getvalue(id) {
+     const currentValue = document.getElementById(id).value;
+      const valueNumber = parseFloat(currentValue);
+         return valueNumber;
+      
+   }
+
+   function getInnerText(id) {
+      const text = document.getElementById(id).innerText;
+      const textNumber = parseFloat(text);
+      return textNumber;
+   }
+
+
+   function increaseBtn(id) {
+      const currentValue = document.getElementById(id).value;
+      const currentnumber = parseFloat(currentValue);
+      const Quantity = currentnumber + 1;
+document.getElementById(id).value = Quantity; 
+return Quantity;
+   }
+   // All function end//
+
+   //plusBtn event handeler :(mobile section)
+
+const plusbtn = document.getElementById("plusbtn1");
+   plusbtn.addEventListener("click", function() {
+      const Quantity = increaseBtn("currentQ");
+const currentprice = Quantity * 500;
+document.getElementById("mobilePrice").innerText = currentprice;
+const subText = getInnerText("subTotal");
+totalsub = subText + 500
+document.getElementById("subTotal").innerText = totalsub;
+})
+
+
+// input event handler:(mobile section)
+   const inpputValue = document.getElementById("currentQ");
+   inpputValue.addEventListener("input", function() {
+   const currentnumber = getvalue("currentQ");
+   const price = currentnumber*500;
+   document.getElementById("mobilePrice").innerText = price; 
+
+   const subText = getInnerText("casingPrice");
+   const totalsub = subText + price;
+   document.getElementById("subTotal").innerText = totalsub;
+   
+
+})
+
+  
+//minusBtn event handler: (mobile section)
+
+   const minusbtn = document.getElementById("minusbtn1");
+      minusbtn.addEventListener("click", function() {
+   
+         const currentnumber = getvalue("currentQ");
+   const quantity = currentnumber - 1;
+   document.getElementById("currentQ").value = quantity; 
+
+   const pricenumber = getInnerText("mobilePrice");
+   const downprice = pricenumber - 500;
+   document.getElementById("mobilePrice").innerText = downprice;
+
+   const subTotalnumber = getInnerText("subTotal");
+   const currentsubtotal = subTotalnumber-500;
+   document.getElementById("subTotal").innerText = currentsubtotal;
+})
+   
+   // csplusBtn handler section :(casing section)
+   const csplusbtn = document.getElementById("csplusBtn");
+   csplusbtn.addEventListener("click", function() {
+      const Quantity = increaseBtn("csQuantity");
+
+   const csprice = Quantity * 50
+   document.getElementById("casingPrice").innerText = csprice;
+   const subText = getInnerText("subTotal");
+
+   const totalsub = subText + 50
+   document.getElementById("subTotal").innerText = totalsub;
+   })
+
+//csminusBtn handler section : (casing section)
+
+   document.getElementById("csminusBtn").addEventListener("click", function() {
+   const cscurrentvalue = getvalue("csQuantity");
+   const csquantity = cscurrentvalue -1;
+   document.getElementById("csQuantity").value = csquantity;
+   const csprice = csquantity *50
+   document.getElementById("casingPrice").innerText = csprice;
+   
+   const subText = getInnerText("subTotal");
+   const totalsub = subText - 50
+   document.getElementById("subTotal").innerText = totalsub;
+})
+// input event handler:(casing section)
+   const inputValue = document.getElementById("csQuantity");
+   inputValue.addEventListener("input", function() {
+   const currentnumber = getvalue("csQuantity");
+   const price = currentnumber*50;
+   document.getElementById("casingPrice").innerText = price; 
+
+   const subText = getInnerText("mobilePrice");
+   const totalsub = subText + price;
+   document.getElementById("subTotal").innerText = totalsub;
+   
+
+})
+
+// checkBtn event handler 
+
+document.getElementById("checkBtn").addEventListener("click",function () {
+   const tax = getInnerText("subTotal");
+   const newtax = tax * 0.05
+   const total = newtax + tax
+   document.getElementById("taxAmount").innerText = newtax;
+   document.getElementById("includeTax").innerText = total;
+})
+
+
+</script>
+
+
+</body>
+
+</html>
