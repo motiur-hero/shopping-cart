@@ -27,9 +27,9 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button id="minusbtn1" class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input id="currentQ" type="text" class="form-control text-center" value="1">
-                           <button id="plusbtn1" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="mobile-minus-btn" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="mobile-input" type="text" class="form-control text-center" value="1">
+                           <button id="mobile-plus-btn" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
                         <h5>$ <span id="mobilePrice" >500</span> </h5>
                         <img src="images/remove.png" alt="" class="remove-item">
@@ -45,9 +45,9 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button id="csminusBtn" class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input id="csQuantity" type="text" class="form-control text-center" value="1">
-                           <button id="csplusBtn" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="casing-minus-btn" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="casing-input" type="text" class="form-control text-center" value="1">
+                           <button id="casing-plus-btn" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
                         <h5>$ <span id="casingPrice" >50</span> </h5>
@@ -101,36 +101,38 @@
 
    function increaseBtn(id) {
       const currentValue = document.getElementById(id).value;
-      const currentnumber = parseFloat(currentValue);
-      const Quantity = currentnumber + 1;
-document.getElementById(id).value = Quantity; 
-return Quantity;
+      const currentNumber = parseFloat(currentValue);
+      const Quantity = currentNumber + 1;
+      document.getElementById(id).value = Quantity; 
+      return Quantity;
    }
+
+  
    // All function end//
 
    //plusBtn event handeler :(mobile section)
 
-const plusbtn = document.getElementById("plusbtn1");
-   plusbtn.addEventListener("click", function() {
-      const Quantity = increaseBtn("currentQ");
-const currentprice = Quantity * 500;
-document.getElementById("mobilePrice").innerText = currentprice;
+const plusBtn = document.getElementById("mobile-plus-btn");
+   plusBtn.addEventListener("click", function() {
+      const Quantity = increaseBtn("mobile-input");
+const currentPrice = Quantity * 500;
+document.getElementById("mobilePrice").innerText = currentPrice;
 const subText = getInnerText("subTotal");
-totalsub = subText + 500
-document.getElementById("subTotal").innerText = totalsub;
+totalSub = subText + 500
+document.getElementById("subTotal").innerText = totalSub;
 })
 
 
 // input event handler:(mobile section)
-   const inpputValue = document.getElementById("currentQ");
-   inpputValue.addEventListener("input", function() {
-   const currentnumber = getvalue("currentQ");
-   const price = currentnumber*500;
+   const inputValue = document.getElementById("mobile-input");
+   inputValue.addEventListener("input", function() {
+   const inputNumber = getvalue("mobile-input");
+   const price = inputNumber*500;
    document.getElementById("mobilePrice").innerText = price; 
 
    const subText = getInnerText("casingPrice");
-   const totalsub = subText + price;
-   document.getElementById("subTotal").innerText = totalsub;
+   const totalSub = subText + price;
+   document.getElementById("subTotal").innerText = totalSub;
    
 
 })
@@ -138,12 +140,19 @@ document.getElementById("subTotal").innerText = totalsub;
   
 //minusBtn event handler: (mobile section)
 
-   const minusbtn = document.getElementById("minusbtn1");
-      minusbtn.addEventListener("click", function() {
-   
-         const currentnumber = getvalue("currentQ");
-   const quantity = currentnumber - 1;
-   document.getElementById("currentQ").value = quantity; 
+   const minusBtn = document.getElementById("mobile-minus-btn");
+      minusBtn.addEventListener("click", function() {
+        
+        
+      var currentNumber = getvalue("mobile-input");
+         if(currentNumber > 0) {
+           currentNumber --;
+         }
+         else  {
+            return currentNumber = 0;
+         }
+              
+   document.getElementById("mobile-input").value = currentNumber;
 
    const pricenumber = getInnerText("mobilePrice");
    const downprice = pricenumber - 500;
@@ -155,41 +164,47 @@ document.getElementById("subTotal").innerText = totalsub;
 })
    
    // csplusBtn handler section :(casing section)
-   const csplusbtn = document.getElementById("csplusBtn");
+   const csplusbtn = document.getElementById("casing-plus-btn");
    csplusbtn.addEventListener("click", function() {
-      const Quantity = increaseBtn("csQuantity");
+      const Quantity = increaseBtn("casing-input");
 
-   const csprice = Quantity * 50
-   document.getElementById("casingPrice").innerText = csprice;
+   const csPrice = Quantity * 50
+   document.getElementById("casingPrice").innerText = csPrice;
    const subText = getInnerText("subTotal");
 
-   const totalsub = subText + 50
-   document.getElementById("subTotal").innerText = totalsub;
+   const totalSub = subText + 50
+   document.getElementById("subTotal").innerText = totalSub;
    })
 
-//csminusBtn handler section : (casing section)
+//casing minusBtn handler section : (casing section)
 
-   document.getElementById("csminusBtn").addEventListener("click", function() {
-   const cscurrentvalue = getvalue("csQuantity");
-   const csquantity = cscurrentvalue -1;
-   document.getElementById("csQuantity").value = csquantity;
-   const csprice = csquantity *50
-   document.getElementById("casingPrice").innerText = csprice;
+   document.getElementById("casing-minus-btn").addEventListener("click", function() {
+      var casingValue = getvalue("casing-input");
+      if(casingValue > 0){
+         casingValue --;
+      }
+    else{
+         return casingValue = 0 }
+
+  
+   document.getElementById("casing-input").value = casingValue;
+   const csPrice = casingValue *50
+   document.getElementById("casingPrice").innerText = csPrice;
    
    const subText = getInnerText("subTotal");
-   const totalsub = subText - 50
-   document.getElementById("subTotal").innerText = totalsub;
+   const totalSub = subText - 50
+   document.getElementById("subTotal").innerText = totalSub;
 })
 // input event handler:(casing section)
-   const inputValue = document.getElementById("csQuantity");
-   inputValue.addEventListener("input", function() {
-   const currentnumber = getvalue("csQuantity");
-   const price = currentnumber*50;
+   const casingInput = document.getElementById("casing-input");
+   casingInput.addEventListener("input", function() {
+   const currentNumber = getvalue("casing-input");
+   const price = currentNumber*50;
    document.getElementById("casingPrice").innerText = price; 
 
    const subText = getInnerText("mobilePrice");
-   const totalsub = subText + price;
-   document.getElementById("subTotal").innerText = totalsub;
+   const totalSub = subText + price;
+   document.getElementById("subTotal").innerText = totalSub;
    
 
 })
@@ -198,9 +213,9 @@ document.getElementById("subTotal").innerText = totalsub;
 
 document.getElementById("checkBtn").addEventListener("click",function () {
    const tax = getInnerText("subTotal");
-   const newtax = tax * 0.05
-   const total = newtax + tax
-   document.getElementById("taxAmount").innerText = newtax;
+   const newTax = tax * 0.05
+   const total = newTax + tax
+   document.getElementById("taxAmount").innerText = newTax;
    document.getElementById("includeTax").innerText = total;
 })
 
